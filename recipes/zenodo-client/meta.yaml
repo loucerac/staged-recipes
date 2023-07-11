@@ -1,0 +1,47 @@
+{% set name = "zenodo-client" %}
+{% set version = "0.2.0" %}
+
+package:
+  name: {{ name|lower }}
+  version: {{ version }}
+
+source:
+  url: https://pypi.io/packages/source/{{ name[0] }}/{{ name }}/zenodo_client-{{ version }}.tar.gz
+  sha256: 8d402a0d3e28bff76994f14e7dee70aa6f64cc1b75b1f67da5e9d23357b76a64
+
+build:
+  noarch: python
+  script: {{ PYTHON }} -m pip install . -vv
+  number: 0
+
+requirements:
+  host:
+    - python >=3.7
+    - setuptools
+    - wheel
+    - pip
+  run:
+    - python >=3.7
+    - dataclasses-json
+    - pystow >=0.1.0
+    - requests
+    - click
+    - more-click
+
+test:
+  imports:
+    - zenodo_client
+  commands:
+    - pip check
+  requires:
+    - pip
+
+about:
+  home: https://github.com/cthoyt/zenodo-client
+  summary: A wrapper for the Zenodo API.
+  license: MIT
+  license_file: LICENSE
+
+extra:
+  recipe-maintainers:
+    - AddYourGitHubIdHere
